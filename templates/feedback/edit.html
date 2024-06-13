@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Feedback Edit</h1>
+
+<form method="POST">
+
+    {{ form.hidden_tag() }}
+
+
+    </div>
+
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div class="form-group">
+        <label for="{{ field.id }}">{{ field.label }}</label>
+        {% set placeholder = '' %}
+        {% if field.name == 'title' %}
+            {% set placeholder = feedback.title %}
+        {% elif field.name == 'content' %}
+            {% set placeholder = feedback.content %}
+        {% endif %}
+        {{ field(class_="form-control", placeholder=placeholder) }}
+        
+        {% for error in field.errors %}
+            <span class="form-text text-danger">{{ error }}</span> 
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-success" >Edit</button>
+</form>
+{% endblock %}
